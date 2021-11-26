@@ -1,0 +1,93 @@
+{% if not parties %}
+{% extends "layout1.html" %}
+{% endif %}
+
+{% if parties %}
+{% extends "layout.html" %}
+{% endif %}
+
+{% block title %}
+    Invited
+{% endblock %}
+
+{% block main %}
+<fieldset>
+    <h1 id="rcorners2">Invited</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            {% if parties %}
+            {% for party in parties %}
+                <!--{% if loop.index <= 5 %}-->
+                <div class="col-4">
+                    <div class="card" style="width: 18rem;">
+                      <img class="card-img-top" src="static/pineapple.jpg" alt="Card image cap">
+                      <div class="card-body">
+                        <h5 class="card-title">{{party["name"]}}</h5>
+                        <p class="card-text">When: {{party["date"]}}</p>
+                        <p class="card-text">Where: {{party["place"]}}</p>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#pModal" data-partynotes="{{party['notes']}}" data-partynec="{{party['nec']}}" data-partyname="{{party['name']}}" data-partyid="{{party['id']}}">
+                              More...
+                            </button>
+                            <button class="btn btn-secondary" data-partyid="{{party['id']}}">
+                              Decline
+                            </button>
+                      </div>
+                    </div>
+                </div>
+                <!--{% endif %}-->
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</fieldset>
+
+<div class="modal fade" id="pModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="pModalLabel">Welcome!</h5>
+          <button type="button" class="close" data-dismiss="modal"></button>
+        </div>
+        <h2 class="modal-body">Greetings</h2>
+        <div id="mbody" class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<script>
+
+    // Modal Popup
+    $('#pModal').on('show.bs.modal', function (event) {
+      // extract info from button that triggered the modal
+      var id = $(event.relatedTarget).data("partyid")
+      var name = $(event.relatedTarget).data("partyname")
+      var nec = $(event.relatedTarget).data("partynec")
+      var notes = $(event.relatedTarget).data("partynotes")
+
+      // update the title of the modal
+      var modal = $(this)
+      modal.find('.modal-title').text(name)
+      modal.find('h2').text(notes)
+      modal.find('#mbody').text("Necessities: " + nec)
+    })
+
+
+  // Delete Functionality
+  $(".btn-secondary").click(function(){
+      var id = $(this).data("partyid")
+      $.get("/decline?pid=" + id, function(){
+        alert("Successfully Declined")
+        location.reload(true)
+      })
+  });
+
+</script>
+
+{% endblock %}

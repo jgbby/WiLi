@@ -1,0 +1,85 @@
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: xx-large;
+}
+
+/* colors for brand */
+nav .navbar-brand .darkpurple
+{
+    color: #52034a;
+}
+nav .navbar-brand .red
+{
+    color: #ea433b;
+}
+nav .navbar-brand .darkred
+{
+    color: #a61a0f;
+}
+nav .navbar-brand .purple
+{
+    color: #FF00FF;
+}
+
+#rcorners1 {
+  border-radius: 25px;
+  background: #FFFFFF;
+  padding: 20px;
+  margin-left: 320px;
+  width: 400px;
+  height: 150px;
+}
+
+#rcorners2 {
+  border-radius: 25px;
+  background: #6b6969;
+  padding: 12px;
+  margin-left: 370px;
+  width: 300px;
+  height: 70px;
+  color: white;
+
+}
+
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+    /* override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main
+{
+    /* scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* center contents */
+    text-align: center;
+}
+
+main img
+{
+    /* constrain images on small screens */
+    max-width: 100%;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.bg {
+  /* The image used */
+  background-image: url("party.jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

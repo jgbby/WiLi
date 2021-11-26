@@ -1,0 +1,39 @@
+{% extends "layout1.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+{% block main %}
+<form id = "register" action="/register" method="post">
+    <div id="infodiv" class="form-group">
+        <input autocomplete="off" autofocus name="username" placeholder="Username" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+        <input class="form-control" name="password" placeholder="Password" type="password">
+    </div>
+    <div class="form-group">
+        <input class="form-control" name="confirmation" placeholder="Re-type Password" type="password">
+    </div>
+    <button id="submitbutton" class="btn btn-primary" type="submit">Register</button>
+</form>
+
+
+<script src="https://code.jquery.com/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script>
+document.getElementById("register").addEventListener("click", function(event){
+        event.preventDefault()
+});
+$("#submitbutton").click(function(){
+    var username = document.querySelector('input[name="username"]').value;
+    $.get("/check?username=" + username, function(data){
+        if (data == true) {
+            document.querySelector('form').submit();
+        }
+        else {
+            alert("Username is already used");
+        }
+    })
+});
+</script>
+
+{% endblock %}
