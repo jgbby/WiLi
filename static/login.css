@@ -73,7 +73,9 @@ body, html {
 
 .bg {
   /* The image used */
-  background-image: url("lock.jpg");
+  /* background-image: url("lock.jpg"); */
+  background-color: #053a58;
+
 
   /* Full height */
   height: 100%;
