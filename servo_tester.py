@@ -1,8 +1,10 @@
 from gpiozero import Servo, AngularServo
 from time import sleep
 
+'''
+WILL NEED TO MAKE SERVO OBJ IN OTHER FILE
+'''
 servo = AngularServo(14)
-
 
 def unlock(angle):
      '''
