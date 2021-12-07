@@ -7,8 +7,10 @@ from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
-
 from helpers import apology, login_required
+
+# pi imports
+from gpiozero import Servo, AngularServo
 
 
 # Configure application
@@ -34,7 +36,10 @@ Session(app)
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///wili.db")
 
-# DISPLAY MYPARTY
+# Instantiate servo
+servo = AngularServo(14)
+
+# DISPLAY HOME PAGE
 @app.route("/", methods=["GET", "POST"])
 @login_required
 def home():
@@ -55,6 +60,7 @@ def unlock():
         uid = session["user_id"]
         # servo unlock
         print("Unlocking!")
+        servo.angle = 360
         return redirect("/")
 
 @app.route("/lock", methods=["GET"])
@@ -64,6 +70,7 @@ def lock():
         uid = session["user_id"]
         # servo unlock
         print("Locking!")
+        servo.angle = 180
         return redirect("/")
 
 # LOGIN
