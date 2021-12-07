@@ -27,7 +27,11 @@ def timer_lock(lock_angle, unlock_angle, time):
      sleep(time)
      unlock(unlock_angle)
 
+def main():
+     while True:
+          timer_lock(-90, 90, 2)
 
 if __name__ == "__main__":
+     main()
     
 

@@ -60,7 +60,7 @@ def unlock():
         uid = session["user_id"]
         # servo unlock
         print("Unlocking!")
-        servo.angle = 360
+        servo.angle = 90
         return redirect("/")
 
 @app.route("/lock", methods=["GET"])
@@ -70,7 +70,7 @@ def lock():
         uid = session["user_id"]
         # servo unlock
         print("Locking!")
-        servo.angle = 180
+        servo.angle = -90
         return redirect("/")
 
 # LOGIN
