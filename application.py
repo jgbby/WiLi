@@ -12,6 +12,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology, login_required
 
 # pi imports
+from gpiozero.pins.pigpio import PiGPIOFactory
 from gpiozero import Servo, AngularServo
 
 
@@ -39,7 +40,8 @@ Session(app)
 db = SQL("sqlite:///wili.db")
 
 # Instantiate servo
-servo = AngularServo(14)
+pigpio_factory = PiGPIOFactory()
+servo = AngularServo(14, pin_factory=pigpio_factory)
 
 # DISPLAY HOME PAGE
 @app.route("/", methods=["GET", "POST"])
