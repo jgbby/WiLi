@@ -32,12 +32,12 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Configure CS50 Library to use SQLite database
-db = SQL("sqlite:///planme.db")
+db = SQL("sqlite:///wili.db")
 
 # DISPLAY MYPARTY
 @app.route("/", methods=["GET", "POST"])
 @login_required
-def myparty():
+def home():
     # Init vars
     uid = session["user_id"]
 
@@ -45,109 +45,26 @@ def myparty():
     parties = db.execute("SELECT * FROM parties WHERE hostid = :uid", uid=uid)
 
     # Return template and variables
-    return render_template("index.html", parties=parties)
+    return render_template("index.html")
 
 
-# DELETE PARTY
-@app.route("/delete", methods=["GET"])
+@app.route("/unlock", methods=["GET"])
 @login_required
-def delete():
-    uid = session["user_id"]
-    pid = request.args.get("pid")
-
-
-    # Ensure user is the host of given party
-    hostid = db.execute("SELECT hostid FROM parties WHERE id=:pid", pid=pid)
-    if hostid[0]["hostid"] == uid:
-        db.execute("DELETE FROM parties WHERE hostid=:uid AND id=:pid", uid=uid, pid=pid)
-        db.execute("DELETE FROM invited WHERE partyid=:pid", pid=pid)
-
-    return redirect("/")
-
-# DECLINE METHOD
-@app.route("/decline", methods=["GET"])
-@login_required
-def decline():
-    uid = session["user_id"]
-    pid = request.args.get("pid")
-    db.execute("DELETE FROM invited WHERE partyid=:pid AND userid=:uid", pid=pid, uid=uid)
-    return redirect("/invited")
-
-# DISPLAY INVITED
-@app.route("/invited", methods=["GET", "POST"])
-@login_required
-def invited():
-
-    # Init vars
-    uid = session["user_id"]
-
-    # Init all invited parties
-    parties = db.execute("""SELECT parties.nec, parties.id, parties.name, parties.notes,
-    parties.date, parties.place FROM invited, parties WHERE parties.id = invited.partyid
-    AND invited.userid = :uid""", uid=uid)
-
-    # Return template and variables
-    return render_template("invited.html", parties=parties)
-
-
-# CREATE FORM
-@app.route("/create", methods=["GET", "POST"])
-@login_required
-def create():
-    if request.method == "POST":
-
-        # Gather inputs
+def unlock():
+    if request.method == "GET":
         uid = session["user_id"]
-        name = request.form.get("name")
-        date = request.form.get("date")
-        place = request.form.get("place")
-        notes = request.form.get("notes")
-        nec = request.form.get("nec")
-        inviteesl = []
-        for i in range(0,16):
-            if (request.form.get("in"+str(i))):
-                inviteesl.append(request.form.get("in"+str(i)))
+        # servo unlock
+        print("Unlocking!")
+        return redirect("/")
 
-        # Error checking
-        if not name:
-            return apology("Must enter a name!")
-        elif not date:
-            return apology("Must enter a date!")
-        elif not place:
-            return apology("Must enter a place!")
-        elif not inviteesl:
-            return apology("Must enter an invite!")
-        elif not nec:
-            return apology("Must enter a necessity!")
-        elif not notes:
-            return apology("Must enter a greeting!")
-
-        # Init pinfo1
-        pinfo1 = {"name": name, "date": date, "place": place, "notes": notes, "nec": nec}
-
-        # Update db parties
-        db.execute('''INSERT INTO parties (name, place, date, notes, hostid, nec)
-                      VALUES (:name, :place, :date, :notes, :hostid, :nec)''',
-                      name=pinfo1["name"], date=pinfo1["date"], place=pinfo1["place"], notes=pinfo1["notes"], hostid=uid, nec=pinfo1["nec"])
-
-        # Get most recently created party (THIS IS ALSO A RACE CONDITION)
-        partyid = db.execute("SELECT id FROM parties WHERE hostid = :uid ORDER BY id DESC LIMIT 1", uid=uid)
-
-        # Update db invited
-        for invitee in inviteesl:
-            # Get userid
-            validuser = db.execute("SELECT id FROM users WHERE username = :username", username=invitee)
-            if validuser:
-                db.execute('''INSERT INTO invited (userid, partyid)
-                              VALUES (:iid, :partyid)''', iid=validuser[0]["id"], partyid=partyid[0]["id"])
-
-        # Return updated page
-        message = "Success!"
-        return render_template("create.html", pinfo1=pinfo1, inviteesl=inviteesl, message=message)
-
-    else:
-        return render_template("create.html")
-
+@app.route("/lock", methods=["GET"])
+@login_required
+def lock():
+    if request.method == "GET":
+        uid = session["user_id"]
+        # servo unlock
+        print("Locking!")
+        return redirect("/")
 
 # LOGIN
 @app.route("/login", methods=["GET", "POST"])
