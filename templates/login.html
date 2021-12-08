@@ -5,13 +5,23 @@
 {% endblock %}
 
 {% block main %}
-    <form action="/login" method="post">
-        <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
+
+    <section class="presentation">
+        <div class="introduction">
+            <div class="intro-text">
+                <h1>WiLi, the lock of the future</h1>
+                <p>
+                    Limitless range with a click of a button.
+                </p>
+            </div>
+            <div class="cta">
+                <form action="/login" method="post">
+                    <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
+                    <div></div>
+                    <input name="password" placeholder="Password" type="password">
+                    <button type="submit" class="cta-select"><span>Login</span></button>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            <input class="form-control" name="password" placeholder="Password" type="password">
-        </div>
-        <button class="btn btn-primary" type="submit">Log In</button>
-    </form>
+    </section>
 {% endblock %}

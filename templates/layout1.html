@@ -8,11 +8,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- documentation at http://getbootstrap.com/docs/4.1/, alternative themes at https://bootswatch.com/ -->
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
-
         <link href="/static/favicon.ico" rel="icon">
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
         <link href="/static/login.css" rel="stylesheet">
 
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -22,46 +22,55 @@
         <title>Wi-Li: {% block title %}{% endblock %}</title>
 
     </head>
-
-    <div class="bg">
-    <body>
-        <nav class="navbar navbar-expand-md navbar-light">
-            <a class="navbar-brand" href="/"><span class="seafoam">Wi</spam><span class="seablue">Li</span></a>
-            <img src="static/lock-icon.png"></img>
-            <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbar">
-                {% if session.user_id %}
-                    <ul class="navbar-nav ml-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/">My Locks</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/reset">Change Password</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
-                    </ul>
-                {% else %}
-                    <ul class="navbar-nav ml-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
-                    </ul>
-                {% endif %}
-            </div>
-        </nav>
-
-        {% if get_flashed_messages() %}
+        <!-- {% if get_flashed_messages() %}
             <header>
                 <div class="alert alert-primary border text-center" role="alert">
                     {{ get_flashed_messages() | join(" ") }}
                 </div>
             </header>
-        {% endif %}
+        {% endif %} -->
 
-        <main class="container p-5">
+    <body>
+        <header>
+            <div class="logo-container">
+                <img id="logo" src="/static/lock-icon.png" alt="logo"/>
+                <h4 class="logo">WiLi</h4>
+            </div>
+            <nav>
+                {% if session.user_id %}
+                    <ul class="nav-links">
+                        <li><a class="nav-link" href="/">My Locks</a></li>
+                        <li><a class="nav-link" href="/reset">Change Password</a></li>
+                        <li><a class="nav-link" href="/logout">Log Out</a></li>
+                    </ul>
+                {% else %}
+                    <ul class="nav-links">
+                        <li><a class="nav-link" href="/register">Register</a></li>
+                        <li><a class="nav-link" href="/login">Log In</a></li>
+                    </ul>
+                {% endif %}
+            </nav>
+            <div class="locks">
+                <a href="/" ><img id="spin-lock" src="/static/spin-lock.png" alt="spin-lock"/></a>
+            </div>
+        </header>
+
+
+        <main class="">
+            
             {% block main %}{% endblock %}
+
+            <div class="back-squares">
+                <img class="design1" src="/static/design4.png" alt="design4"/>
+                <img class="design2" src="/static/design2.png" alt="design2"/>
+                <img class="design3" src="/static/design3.png" alt="design3"/>
+                <img class="design4" src="/static/design4.png" alt="design4"/>
+            </div>
+
         </main>
 
-        <footer class="small text-center ">
-            Brown University - ENGN 0032.
-        </footer>
+        <div class="footer-helper">
+            <a href="https://engineering.brown.edu/"><footer>Brown University - ENGN 0032</footer></a>
+        </div>
     </body>
-    </div>
 </html>

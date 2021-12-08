@@ -11,19 +11,19 @@
 {% endblock %}
 
 {% block main %}
-<fieldset>
-    <h1 id="rcorners2">MyLocks</h1>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-4">
-                    <div class="form-group">
-                        <h5><button id="unlock-btn" class="btn btn-info btn-lg active" href="/unlock">UNLOCK</butotn></h5>
-                        <h5><button id="lock-btn" class="btn btn-info btn-lg active" href="/lock">LOCK</button></h5>
-                    </div>
-            </div>
+
+<section class="presentation">
+    <div class="introduction">
+        <div class="intro-text">
+            <h1>My Locks</h1>
+        </div>
+        <div class="cta">
+            <button id="unlock-btn" type = "submit" class="cta-select" href="/unlock"><span>Unlock</span></button>
+            <div class="divider"></div>
+            <button id="lock-btn" type = "submit" class="cta-select" href="/lock"><span>Lock</span></button>
         </div>
     </div>
-</fieldset>
+</section>
 
 <script>
 

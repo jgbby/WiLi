@@ -4,19 +4,22 @@
     Register
 {% endblock %}
 {% block main %}
-<form id = "register" action="/register" method="post">
-    <div id="infodiv" class="form-group">
-        <input autocomplete="off" autofocus name="username" placeholder="Username" type="text" class="form-control">
-    </div>
-    <div class="form-group">
-        <input class="form-control" name="password" placeholder="Password" type="password">
-    </div>
-    <div class="form-group">
-        <input class="form-control" name="confirmation" placeholder="Re-type Password" type="password">
-    </div>
-    <button id="submitbutton" class="btn btn-primary" type="submit">Register</button>
-</form>
 
+<section class="presentation">
+    <div class="introduction">
+        <div class="intro-text">
+            <h1>Small steps to ensuring your security!</h1>
+        </div>
+        <div class="cta">
+            <form id="register" action="/register" method="post">
+                <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
+                <input name="password" placeholder="Password" type="password">
+                <input name="confirmation" placeholder="Re-type Password" type="password">
+                <button id="submitbutton" type="submit" class="cta-select"><span>Register</span></button>
+            </form>
+        </div>
+    </div>
+</section>
 
 <script src="https://code.jquery.com/jquery-1.11.0.min.js" type="text/javascript"></script>
 <script>
