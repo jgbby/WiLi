@@ -32,26 +32,28 @@
 
     <body>
         <header>
+            <a href="/">    
             <div class="logo-container">
                 <img id="logo" src="/static/lock-icon.png" alt="logo"/>
                 <h4 class="logo">WiLi</h4>
             </div>
+            </a>
             <nav>
                 {% if session.user_id %}
-                    <ul class="nav-links">
+                    <ul id="nav-links" class="nav-links">
                         <li><a class="nav-link" href="/">My Locks</a></li>
                         <li><a class="nav-link" href="/reset">Change Password</a></li>
                         <li><a class="nav-link" href="/logout">Log Out</a></li>
                     </ul>
                 {% else %}
-                    <ul class="nav-links">
+                    <ul id="nav-links" class="nav-links">
                         <li><a class="nav-link" href="/register">Register</a></li>
                         <li><a class="nav-link" href="/login">Log In</a></li>
                     </ul>
                 {% endif %}
             </nav>
             <div class="locks">
-                <a href="/" ><img id="spin-lock" src="/static/spin-lock.png" alt="spin-lock"/></a>
+                <img id="spin-lock" src="/static/spin-lock.png" alt="spin-lock"/>
             </div>
         </header>
 
@@ -73,4 +75,24 @@
             <a href="https://engineering.brown.edu/"><footer>Brown University - ENGN 0032</footer></a>
         </div>
     </body>
+    <script>
+        var nav = document.querySelector("nav");
+        var nav_toggled = false;
+
+        $(".locks").click(function(){
+            if (nav.style.display === "block") {
+                nav.style.display = "none";
+            } else {
+                nav.style.display = "block";
+            }
+        });
+
+
+        window.addEventListener('resize', function(event){
+            if (window.outerWidth > 600){
+                nav.style.display = "block";
+                alert("helloooo plss");
+            }
+        });
+    </script>
 </html>
